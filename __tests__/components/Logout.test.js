@@ -1,18 +1,22 @@
-import React from 'react'
-import { shallow } from 'enzyme'
-import Logout from '../../app/components/Logout'
+import React from 'react';
+import configureStore from 'redux-mock-store';
+import { shallow } from 'enzyme';
+import Logout from '../../app/components/Logout';
+import { logout } from '../../app/modules/account';
+
+const state = {}
 
 describe('Logout', () => {
-  const logout = jest.fn()
   test('should render without crashing', () => {
-    const wrapper = shallow(<Logout logout={logout} />)
-    expect(wrapper).toMatchSnapshot()
-  })
-
+    const store = configureStore()(state);
+    const wrapper = shallow(<Logout store={store} />);
+    expect(wrapper.dive()).toMatchSnapshot();
+  });
+  
   test('should dispatch logout action when clicked', () => {
-    const wrapper = shallow(<Logout logout={logout} />)
-    expect(logout.mock.calls.length).toEqual(0)
-    wrapper.find('.logout').simulate('click')
-    expect(logout.mock.calls.length).toEqual(1)
-  })
-})
+    const store = configureStore()(state);
+    const wrapper = shallow(<Logout store={store} />);
+    wrapper.dive().find('#logout').simulate('click');
+    expect(store.getActions()[0]).toEqual(logout());
+  });
+});

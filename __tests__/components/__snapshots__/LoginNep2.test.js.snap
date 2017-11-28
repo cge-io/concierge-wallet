@@ -2,7 +2,8 @@
 
 exports[`LoginNep2 renders without crashing 1`] = `
 <LoginNep2
-  loginNep2={[Function]}
+  decrypting={false}
+  dispatch={[Function]}
   store={
     Object {
       "clearActions": [Function],

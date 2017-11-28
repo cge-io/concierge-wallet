@@ -48,13 +48,14 @@ exports[`Claim should render claim gas button when claim button is not disabled 
 
 exports[`Claim should render without crashing 1`] = `
 <Claim
+  address="address"
   claimAmount={10}
   claimRequest={false}
   claimWasUpdated={false}
   disableClaimButton={false}
-  doClaimNotify={[Function]}
-  doGasClaim={[Function]}
-  setClaimRequest={[Function]}
+  dispatch={[Function]}
+  neo="neo"
+  net="network"
   store={
     Object {
       "clearActions": [Function],
@@ -65,26 +66,6 @@ exports[`Claim should render without crashing 1`] = `
       "subscribe": [Function],
     }
   }
-  storeSubscription={
-    Subscription {
-      "listeners": Object {
-        "clear": [Function],
-        "get": [Function],
-        "notify": [Function],
-        "subscribe": [Function],
-      },
-      "onStateChange": [Function],
-      "parentSub": undefined,
-      "store": Object {
-        "clearActions": [Function],
-        "dispatch": [Function],
-        "getActions": [Function],
-        "getState": [Function],
-        "replaceReducer": [Function],
-        "subscribe": [Function],
-      },
-      "unsubscribe": [Function],
-    }
-  }
+  wif="wif"
 />
 `;

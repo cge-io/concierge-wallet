@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 import account from '../modules/account'
 import generateWallet from '../modules/generateWallet'
 import transactions from '../modules/transactions'
@@ -7,18 +7,17 @@ import wallet from '../modules/wallet'
 import claim from '../modules/claim'
 import dashboard from '../modules/dashboard'
 import rpx from '../modules/rpx'
-import notifications from '../modules/notifications'
-import modal from '../modules/modal'
+import nep from '../modules/nep'
+
 
 export default combineReducers({
-  account,
-  generateWallet,
-  wallet,
-  transactions,
-  dashboard,
-  metadata,
-  claim,
-  rpx,
-  notifications,
-  modal
-})
+    account,
+    generateWallet,
+    wallet,
+    transactions,
+    dashboard,
+    metadata,
+    claim,
+    rpx,
+    nep
+});

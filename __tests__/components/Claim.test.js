@@ -1,159 +1,147 @@
-import React from 'react'
-import { cloneDeep } from 'lodash'
-import { Provider } from 'react-redux'
-import configureStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
-import { shallow, mount } from 'enzyme'
-import Claim from '../../app/containers/Claim'
-import * as neonjs from 'neon-js'
-import { setClaimRequest, disableClaim } from '../../app/modules/claim'
-import { SHOW_NOTIFICATION, HIDE_NOTIFICATIONS, DEFAULT_POSITION } from '../../app/modules/notifications'
-import { NOTIFICATION_LEVELS } from '../../app/core/constants'
+import React from 'react';
+import _ from 'lodash';
+import configureStore from 'redux-mock-store';
+import { shallow, mount } from 'enzyme';
+import Claim from '../../app/components/Claim';
+import * as neonjs from 'neon-js';
+import { setClaimRequest, disableClaim } from '../../app/modules/claim';
+import { sendEvent } from '../../app/modules/transactions';
 
-const initialState = {
+const state = { 
   claim: {
     claimAmount: 10,
     claimRequest: false,
     claimWasUpdated: false,
-    disableClaimButton: false
+    disableClaimButton: false,
   },
   account: {
     wif: 'wif',
     address: 'address'
   },
   metadata: {
-    network: 'network'
+    network: 'network',
   },
   wallet: {
-    Neo: 1
-  }
-}
-
-const setup = (state = initialState, shallowRender = true) => {
-  const store = configureStore([thunk])(state)
-
-  let wrapper
-  if (shallowRender) {
-    wrapper = shallow(<Claim store={store} />)
-  } else {
-    wrapper = mount(
-      <Provider store={store}>
-        <Claim />
-      </Provider>
-    )
-  }
-
-  return {
-    store,
-    wrapper
+    Neo: 'neo',
   }
 }
 
 describe('Claim', () => {
   test('should render without crashing', () => {
-    const { wrapper } = setup()
-    expect(wrapper).toMatchSnapshot()
-  })
-
+    const store = configureStore()(state);
+    const wrapper = shallow(<Claim store={store} />);
+    expect(wrapper).toMatchSnapshot();
+  });
+  
   test('should render claim gas button when claim button is not disabled', () => {
-    const { wrapper } = setup()
-    expect(wrapper.dive()).toMatchSnapshot()
-  })
-
+    const store = configureStore()(state);
+    const wrapper = shallow(<Claim store={store} />);
+    expect(wrapper.dive()).toMatchSnapshot();
+  });
+  
   test('should not render claim gas button when claim button is disabled', () => {
-    const newState = cloneDeep(initialState)
-    newState.claim.disableClaimButton = true
-    const { wrapper } = setup(newState)
-    expect(wrapper.dive()).toMatchSnapshot()
-  })
-
+    const newState = _.cloneDeep(state);
+    newState.claim.disableClaimButton = true;
+    const store = configureStore()(newState);
+    const wrapper = shallow(<Claim store={store} />);
+    expect(wrapper.dive()).toMatchSnapshot();
+  });
+  
   describe('when do gas claim button is clicked', () => {
-    test('should dispatch transaction failure event', async () => {
-      const { wrapper, store } = setup()
+    const store = configureStore()(state);
+    const wrapper = shallow(<Claim store={store} />);
+    
+    test('should dispatch transaction failure event', (done) => {
       neonjs.doSendAsset = jest.fn(() => {
         return new Promise((resolve, reject) => {
-          resolve({ result: undefined })
-        })
-      })
-      wrapper.dive().find('#claim button').simulate('click')
-
-      await Promise.resolve().then().then().then()
-      const actions = store.getActions()
-      expect(actions.length).toEqual(4)
-      expect(actions[0]).toEqual({
-        type: HIDE_NOTIFICATIONS,
-        payload: expect.objectContaining({
-          dismissible: true,
-          position: DEFAULT_POSITION
-        })
-      })
-      expect(actions[1]).toEqual({
-        type: SHOW_NOTIFICATION,
-        payload: expect.objectContaining({
-          message: 'Sending Neo to Yourself...',
-          level: NOTIFICATION_LEVELS.INFO
-        })
-      })
-      expect(actions[2]).toEqual({
-        type: HIDE_NOTIFICATIONS,
-        payload: expect.objectContaining({
-          dismissible: true,
-          position: DEFAULT_POSITION
-        })
-      })
-      expect(actions[3]).toEqual({
-        type: SHOW_NOTIFICATION,
-        payload: expect.objectContaining({
-          message: 'Transaction failed!',
-          level: NOTIFICATION_LEVELS.ERROR
-        })
-      })
-    })
-
-    test('should dispatch transaction waiting, set claim request and disable claim event', async () => {
-      const { wrapper, store } = setup()
+          resolve({ result: undefined });
+        });
+      });
+      wrapper.dive().find('#claim button').simulate('click');
+      
+      setTimeout(() => {
+        try {
+          expect(store.getActions()[0]).toEqual(sendEvent(true, 'Sending Neo to Yourself...')); 
+          expect(store.getActions()[1]).toEqual(sendEvent(false, 'Transaction failed!')); 
+        } catch (error) {
+          throw 'TimeoutException';
+        } finally {
+          done();
+        }
+      }, 0);
+    });
+    
+    test('should dispatch transaction waiting, set claim request and disable claim event', (done) => {
       neonjs.doSendAsset = jest.fn(() => {
         return new Promise((resolve, reject) => {
-          resolve({ result: true })
-        })
-      })
+          resolve({ result: '' });
+        });
+      });
+      wrapper.dive().find('#claim button').simulate('click');
 
-      wrapper.dive().find('#claim button').simulate('click')
-
-      await Promise.resolve().then().then().then()
-      const actions = store.getActions()
-      expect(actions.length).toEqual(6)
-      expect(actions[0]).toEqual({
-        type: HIDE_NOTIFICATIONS,
-        payload: expect.objectContaining({
-          dismissible: true,
-          position: DEFAULT_POSITION
-        })
-      })
-      expect(actions[1]).toEqual({
-        type: SHOW_NOTIFICATION,
-        payload: expect.objectContaining({
-          message: 'Sending Neo to Yourself...',
-          level: NOTIFICATION_LEVELS.INFO
-        })
-      })
-
-      expect(actions[2]).toEqual({
-        type: HIDE_NOTIFICATIONS,
-        payload: expect.objectContaining({
-          dismissible: true,
-          position: DEFAULT_POSITION
-        })
-      })
-      expect(actions[3]).toEqual({
-        type: SHOW_NOTIFICATION,
-        payload: expect.objectContaining({
-          message: 'Waiting for transaction to clear...',
-          level: NOTIFICATION_LEVELS.INFO
-        })
-      })
-      expect(actions[4]).toEqual(setClaimRequest(true))
-      expect(actions[5]).toEqual(disableClaim(true))
-    })
-  })
-})
+      setTimeout(() => {
+        try {
+          expect(store.getActions()[0]).toEqual(sendEvent(true, 'Sending Neo to Yourself...')); 
+          expect(store.getActions()[1]).toEqual(sendEvent(true, "Waiting for transaction to clear...")); 
+          expect(store.getActions()[2]).toEqual(setClaimRequest(true)); 
+          expect(store.getActions()[3]).toEqual(disableClaim(true)); 
+        } catch (error) {
+          throw 'TimeoutException';
+        } finally {
+          done();
+        }
+      }, 0);
+    });
+  });
+  
+  describe('when claim is requested and updated', () => {
+    const newState = _.cloneDeep(state);
+    newState.claim.claimRequest = true;
+    newState.claim.claimWasUpdated = true;
+    newState.dispatch = jest.fn();
+    
+    test('should dispatch false claim request and claim successful event', (done) => {
+      const store = configureStore()(newState);
+      const wrapper = mount(<Claim store={store} />);
+      neonjs.doClaimAllGas = jest.fn(() => {
+        return new Promise((resolve, reject) => {
+          resolve({ result: true });
+        });
+      });
+      wrapper.setProps({ target: '' });
+      
+      setTimeout(() => {
+        try {
+          expect(store.getActions()[0]).toEqual(setClaimRequest(false)); 
+          expect(store.getActions()[1]).toEqual(sendEvent(true, 'Claim was successful! Your balance will update once the blockchain has processed it.')); 
+        } catch (error) {
+          throw 'TimeoutException';
+        } finally {
+          done();
+        }
+      }, 0);
+    });
+    
+    test('should dispatch false claim request and claim failure event', (done) => {
+      const store = configureStore()(newState);
+      const wrapper = mount(<Claim store={store} />);
+      neonjs.doClaimAllGas = jest.fn(() => {
+        return new Promise((resolve, reject) => {
+          resolve({ result: false });
+        });
+      });
+      wrapper.setProps({ target: '' });
+      
+      setTimeout(() => {
+        try {
+          expect(store.getActions()[0]).toEqual(setClaimRequest(false)); 
+          expect(store.getActions()[1]).toEqual(sendEvent(false, 'Claim failed')); 
+        } catch (error) {
+          throw 'TimeoutException';
+        } finally {
+          done();
+        }
+      }, 0);
+    });
+  });
+});

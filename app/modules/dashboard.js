@@ -1,39 +1,22 @@
-// @flow
-import { LOGOUT } from './account'
-
 // Constants
-export const TOGGLE_SEND_PANE = 'TOGGLE_SEND_PANE'
+export const TOGGLE_SEND_PANE = 'TOGGLE_SEND_PANE';
 
 // Actions
-export function togglePane (pane: string) {
+export function togglePane(pane){
   return {
     type: TOGGLE_SEND_PANE,
-    payload: { pane }
+    pane: pane
   }
-}
+};
 
-// state getters
-export const getSendPane = (state) => state.dashboard.sendPane
-export const getConfirmPane = (state) => state.dashboard.confirmPane
-
-const initialState = {
-  sendPane: true,
-  confirmPane: true
-}
-
-export default (state: Object = initialState, action: Object) => {
+// reducer for UI state
+export default (state = {sendPane: true, confirmPane: true}, action) => {
   switch (action.type) {
-    case TOGGLE_SEND_PANE:
-      const { pane } = action.payload
-      let newState = {}
-      newState[pane] = !state[pane]
-      return {
-        ...state,
-        ...newState
-      }
-    case LOGOUT:
-      return initialState
-    default:
-      return state
+      case TOGGLE_SEND_PANE:
+          let newState = {};
+          newState[action.pane] = !state[action.pane];
+          return {...state, ...newState };
+      default:
+          return state;
   }
-}
+};

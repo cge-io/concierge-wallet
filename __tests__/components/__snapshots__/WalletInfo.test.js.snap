@@ -3,15 +3,11 @@
 exports[`WalletInfo renders without crashing 1`] = `
 <WalletInfo
   address="ANqUrhv99rwCiFTL6N1An9NH5UVkPYxTuw"
-  gas={1.0001001}
-  gasPrice={18.1}
-  initiateGetBalance={[Function]}
+  dispatch={[Function]}
+  gas={1.0001}
   neo={10}
-  neoPrice={25.48}
   net="TestNet"
-  showErrorNotification={[Function]}
-  showInfoNotification={[Function]}
-  showSuccessNotification={[Function]}
+  price={25.48}
   store={
     Object {
       "clearActions": [Function],
@@ -20,27 +16,6 @@ exports[`WalletInfo renders without crashing 1`] = `
       "getState": [Function],
       "replaceReducer": [Function],
       "subscribe": [Function],
-    }
-  }
-  storeSubscription={
-    Subscription {
-      "listeners": Object {
-        "clear": [Function],
-        "get": [Function],
-        "notify": [Function],
-        "subscribe": [Function],
-      },
-      "onStateChange": [Function],
-      "parentSub": undefined,
-      "store": Object {
-        "clearActions": [Function],
-        "dispatch": [Function],
-        "getActions": [Function],
-        "getState": [Function],
-        "replaceReducer": [Function],
-        "subscribe": [Function],
-      },
-      "unsubscribe": [Function],
     }
   }
 />
