@@ -9,6 +9,7 @@ import { getAccountFromWIFKey } from 'neon-js';
 import FaEye from 'react-icons/lib/fa/eye';
 import FaEyeSlash from 'react-icons/lib/fa/eye-slash';
 
+// TODO: it is ridiculous that i just copy/pasted this file. we need some heavy refactoring...
 class LoginTokenSale extends React.Component {
     constructor(props) {
         super(props);
@@ -56,7 +57,7 @@ class LoginTokenSale extends React.Component {
             <div id="loginPage">
               <div className="login">
                 <div className="loginForm">
-                  <div className="logo"><img src={logo} width="216px" height="40px"/></div>
+                  <div className="logo"><img src={logo} width="170px" height="40px"/></div>
                   <input type={showKey ? 'text' : 'password'} placeholder="Enter your private key here (WIF)" onChange={this.handleInputChange} />
 
                     {showKey ?
