@@ -107,7 +107,7 @@ class TokenSale extends Component {
         or a delayed refund depending on the policy of the sale. Concierge is not responsible for any mistakes you make participating in
         a sale. After submitting to a sale, you will need to <b>WAIT SOME TIME</b> for the balance of tokens to refresh. You can click
         "Refresh Token" after 10s if you still do not see anything. It is also possible that nodes may not update properly with your token balance,
-        so <b>THINK VERY CAREFULLY</b> before resubmitting to a sale. Do not click "Submit" twice. Concierge does not endorse any token sale other than APH tokens!
+        so <b>THINK VERY CAREFULLY</b> before resubmitting to a sale. Do not click "Submit" twice. Concierge does not endorse any token sale other than CGE tokens!
       </div>
       <div className="settingsForm">
         <div className="settingsItem">
@@ -115,7 +115,7 @@ class TokenSale extends Component {
           <div>{this.props.neo}</div>
         </div>
         <div className="settingsItem">
-          <div className="itemTitle">Token Balance (APH):</div>
+          <div className="itemTitle">Token Balance (CGE):</div>
           <div>{this.props.rpx}</div>
         </div>
         <div className="settingsItem">
@@ -127,7 +127,7 @@ class TokenSale extends Component {
             <input type="text" className="neoAmount" placeholder="e.g., 100" ref={(node) => neoToSend = node}/>
           </div>
           <button onClick={() => participateInSale(this.props.dispatch, this.props.net, this.props.wif, this.props.neo)}>Submit for Sale</button>
-          <button onClick={() => refreshTokenBalance(this.props.dispatch, this.props.net, this.props.address)}>Refresh APH Token Balance</button>
+        <button onClick={() => refreshTokenBalance(this.props.dispatch, this.props.net, this.props.address)}>Refresh CGE Token Balance</button>
         </div>
       <Link to="/"><button className="altButton">Home</button></Link>
     </div>;

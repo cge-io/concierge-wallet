@@ -7,7 +7,7 @@ export const SET_NEP5 = 'SET_NEP5';
 export const ADD_NEP5 = 'ADD_NEP5';
 export const ADD_HASH_BALANCE = 'ADD_HASH_BALANCE';
 
-//start with aphelion and rpx on your nep5 contracts
+//start with Concierge and rpx on your nep5 contracts
 let initialNep5ReducerState = ['0xa0777c3ce2b169d4a23bcba4565e3225a0122d95', '0xecc6b20d3ccac1ee9ef109af5a7cdb85706b1df9'];
 
 // Actions
@@ -35,7 +35,7 @@ export function addHashBalance(hashscript, balance){
 }
 
 
-// reducer for nep5 hash contracts. The initial state will include the hash script for Aphelion
+// reducer for nep5 hash contracts. The initial state will include the hash script for Concierge
 export default (state = { nep5: initialNep5ReducerState , balances: {} }, action) => {
     switch (action.type) {
         case SET_NEP5:

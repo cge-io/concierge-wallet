@@ -3,7 +3,7 @@
   "version": "0.0.8",
   "main": "./main.js",
   "description": "Light wallet for NEO blockchain",
-  "homepage": "https://github.com/aphtoken/neon-wallet",
+  "homepage": "https://github.com/concierge-io/concierge-wallet",
   "author": {
     "name": "Concierge-io",
     "email": "cto@concierge.io"
