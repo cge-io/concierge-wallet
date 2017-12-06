@@ -57,7 +57,7 @@ class LoginTokenSale extends React.Component {
             <div id="loginPage">
               <div className="login">
                 <div className="loginForm">
-                  <div className="logo"><img src={logo} width="170px" height="40px"/></div>
+                  <div className="logo"><img src={logo} width="175px" height="60px"/></div>
                   <input type={showKey ? 'text' : 'password'} placeholder="Enter your private key here (WIF)" onChange={this.handleInputChange} />
 
                     {showKey ?
