@@ -15,7 +15,7 @@ app.on('ready', () => {
     width: 1000,
     minHeight: 750,
     minWidth: 1000,
-    icon: path.join(__dirname, 'icons/png/512x512.png'),
+    icon: path.join(__dirname, 'icons/png/icon.png'),
     webPreferences: {
       webSecurity: false
     },
