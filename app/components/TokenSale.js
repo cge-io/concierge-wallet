@@ -99,7 +99,7 @@ class TokenSale extends Component {
 
   render = () =>
     <div id="tokenSale">
-      <div className="logo"><img src={logo} width="170px" height="40px"/></div>
+      <div className="logo"><img src={logo} width="175px" height="60px"/></div>
       <NetworkSwitch />
       <div className="description">Participate in Token Sale</div>
       <div className="warning">

@@ -1,0 +1,9 @@
+version: 0.0.8
+files:
+  - url: Concierge-0.0.8-x86_64.AppImage
+    sha512: p+FwHfUt6e6gwZN6szyiRo6jd6GXrJWcE7CKBw/aJqgUYA+UUEX02Al+ct2KWMzNeHC8klW1dBidLp7k72fPJA==
+    size: 66588838
+    blockMapSize: 121322
+path: Concierge-0.0.8-x86_64.AppImage
+sha512: p+FwHfUt6e6gwZN6szyiRo6jd6GXrJWcE7CKBw/aJqgUYA+UUEX02Al+ct2KWMzNeHC8klW1dBidLp7k72fPJA==
+releaseDate: '2017-12-06T03:13:49.975Z'
