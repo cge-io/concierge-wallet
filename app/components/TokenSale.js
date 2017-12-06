@@ -10,7 +10,7 @@ import { initiateGetBalance, intervals, NetworkSwitch } from "../components/Netw
 import { sendEvent, clearTransactionEvent } from '../modules/transactions';
 import { updateRpxBalance } from '../modules/rpx';
 
-const logo = require('../images/neon-logo2.png');
+const logo = require('../images/logo.png');
 
 let scriptHashElement, neoToSend;
 

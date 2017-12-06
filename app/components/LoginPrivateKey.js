@@ -50,7 +50,7 @@ class LoginPrivateKey extends React.Component {
   render = () => {
     let { loggedIn, wif } = this.props;
     const { showKey } = this.state;
-    const logo = require('../images/neon-logo2.png');
+    const logo = require('../images/logo.png');
 
     return (
       <div id="loginPage">

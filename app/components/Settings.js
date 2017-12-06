@@ -11,7 +11,7 @@ const {dialog} = require('electron').remote;
 
 import storage from 'electron-json-storage';
 
-const logo = require('../images/neon-logo2.png');
+const logo = require('../images/logo.png');
 
 let explorer_select;
 
