@@ -1,7 +1,7 @@
 .project
 node_modules/*
 env/
-./dist
+./dist/*
 .idea
 release-builds/*
 .DS_Store
