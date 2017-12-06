@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-const logo = require('../images/neon-logo2.png');
+const logo = require('../images/logo.png');
 
 const Home = ({}) =>
   <div id="home">

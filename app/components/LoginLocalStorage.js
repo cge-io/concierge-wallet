@@ -11,7 +11,7 @@ import { sendEvent, clearTransactionEvent } from '../modules/transactions';
 import FaEye from 'react-icons/lib/fa/eye';
 import FaEyeSlash from 'react-icons/lib/fa/eye-slash';
 
-const logo = require('../images/neon-logo2.png');
+const logo = require('../images/logo.png');
 
 let wif_input;
 let passphrase_input;

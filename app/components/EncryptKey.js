@@ -11,7 +11,7 @@ import DisplayWalletKeys from './DisplayWalletKeys';
 import { encryptWifAccount } from 'neon-js';
 import { sendEvent, clearTransactionEvent } from '../modules/transactions';
 
-const logo = require('../images/neon-logo2.png');
+const logo = require('../images/logo.png');
 
 let wif_input, passphrase, passphrase2;
 
